@@ -65,7 +65,11 @@ public class Q4ArrayList<T> {
      */
     public void reverse() {
 	    /* Unimplemented. Q4 iii) [6 Marks] */
-        Collections.reverse(values);
+        T[] values1 = (T[]) new Object[elements];
+        for (int i=0; i<elements; i++){
+            values1[i] = values[elements-i-1];
+        }
+        values = values1;
     }
 
     /**
