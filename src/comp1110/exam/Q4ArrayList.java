@@ -1,5 +1,8 @@
 package comp1110.exam;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 /**
  * COMP1110 Final Exam, Question 4
  */
@@ -17,6 +20,12 @@ public class Q4ArrayList<T> {
      */
     public void add(T value) {
         /* Unimplemented.  Q4 i) [7 Marks] */
+        if (elements+1 > INITIAL_SIZE) {
+            values = Arrays.copyOf(values,elements+1);
+            values[elements++] = value;
+        } else {
+            values[elements++] = value;
+        }
     }
 
     /**
@@ -26,6 +35,12 @@ public class Q4ArrayList<T> {
      */
     public void remove(int index) {
         /* Unimplemented. Q4 ii) [7 Marks] */
+        T value = get(index);
+        int moveSize = elements - index - 1;
+        if (moveSize > 0){
+            System.arraycopy(values,index + 1, values,index,elements - index - 1);
+        }
+        values[--elements] = null;
     }
 
     /**
@@ -50,6 +65,7 @@ public class Q4ArrayList<T> {
      */
     public void reverse() {
 	    /* Unimplemented. Q4 iii) [6 Marks] */
+        Collections.reverse(values);
     }
 
     /**

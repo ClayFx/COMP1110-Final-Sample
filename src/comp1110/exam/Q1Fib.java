@@ -17,6 +17,14 @@ public class Q1Fib {
      *   if n = 5 the result will be 5 because 5 = 3 + 2
      */
     public static int fib(int n) {
-        return -1; // FIXME Question 1ii: complete this function
+        int result = 0;
+        if (n==0) {
+            return 0;
+        } else if (n==1) {
+            return 1;
+        } else {
+            result = fib(n-1) + fib(n-2);
+            return result;
+        }
     }
 }

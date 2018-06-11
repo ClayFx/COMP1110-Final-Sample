@@ -1,5 +1,7 @@
 package comp1110.exam;
 
+import static comp1110.exam.Q1Tour.Piece.white;
+
 /**
  * COMP1110 Final Exam, Question 1ii
  *
@@ -49,7 +51,7 @@ public class Q1Tour {
             String piece = placement.substring(i,i+3);
             int col = (piece.charAt(1)-'A');
             int row = (piece.charAt(2)-'1');
-            this.pieces[col][row] = (piece.charAt(0) == 'B') ? Piece.black : Piece.white;
+            this.pieces[col][row] = (piece.charAt(0) == 'B') ? Piece.black : white;
         }
     }
 
@@ -65,6 +67,87 @@ public class Q1Tour {
     public int tourVictims(String start) {
         int col = (start.charAt(0)-'A');
         int row = (start.charAt(1)-'1');
-        return -1;  // FIXME Question 1iii: complete this function
+        int result = 0;
+        if ((col+2>=0&&col+2<=7)&&(row+1>=0&&row+1<=7)) {
+            if (pieces[col + 2][row + 1] == white) {
+                result += 1;
+            } else if (pieces[col + 2][row + 1] == null) {
+                char newCol = (char) (start.charAt(0) + 2);
+                char newRow = (char) (start.charAt(1) + 1);
+                String newStart = String.valueOf(newCol) + String.valueOf(newRow);
+                result += tourVictims(newStart);
+            }
+        }
+        if ((col + 1>=0&&col + 1<=7)&&(row + 2>=0&&row + 2<=7)) {
+            if (pieces[col + 1][row + 2] == white) {
+                result += 1;
+            } else if (pieces[col + 1][row + 2] == null) {
+                char newCol = (char) (start.charAt(0) + 1);
+                char newRow = (char) (start.charAt(1) + 2);
+                String newStart = String.valueOf(newCol) + String.valueOf(newRow);
+                result += tourVictims(newStart);
+            }
+        }
+        if ((col+2>=0&&col+2<=7)&&(row - 1>=0&&row - 1<=7)) {
+            if (pieces[col + 2][row - 1] == white) {
+                result += 1;
+            } else if (pieces[col + 2][row - 1] == null) {
+                char newCol = (char) (start.charAt(0) + 2);
+                char newRow = (char) (start.charAt(1) - 1);
+                String newStart = String.valueOf(newCol) + String.valueOf(newRow);
+                result += tourVictims(newStart);
+            }
+        }
+        if ((col + 1>=0&&col + 1<=7)&&(row - 2>=0&&row - 2<=7)) {
+            if (pieces[col + 1][row - 2] == white) {
+                result += 1;
+            } else if (pieces[col + 1][row - 2] == null) {
+                char newCol = (char) (start.charAt(0) + 1);
+                char newRow = (char) (start.charAt(1) - 2);
+                String newStart = String.valueOf(newCol) + String.valueOf(newRow);
+                result += tourVictims(newStart);
+            }
+        }
+        if ((col - 2>=0&&col - 2<=7)&&(row+1>=0&&row+1<=7)) {
+            if (pieces[col - 2][row + 1] == white) {
+                result += 1;
+            } else if (pieces[col - 2][row + 1] == null) {
+                char newCol = (char) (start.charAt(0) - 2);
+                char newRow = (char) (start.charAt(1) + 1);
+                String newStart = String.valueOf(newCol) + String.valueOf(newRow);
+                result += tourVictims(newStart);
+            }
+        }
+        if ((col - 1>=0&&col - 1<=7)&&(row + 2>=0&&row + 2<=7)) {
+            if (pieces[col - 1][row + 2] == white) {
+                result += 1;
+            } else if (pieces[col - 1][row + 2] == null) {
+                char newCol = (char) (start.charAt(0) - 1);
+                char newRow = (char) (start.charAt(1) + 2);
+                String newStart = String.valueOf(newCol) + String.valueOf(newRow);
+                result += tourVictims(newStart);
+            }
+        }
+        if ((col-2>=0&&col-2<=7)&&(row-1>=0&&row-1<=7)) {
+            if (pieces[col - 2][row - 1] == white) {
+                result += 1;
+            } else if (pieces[col - 2][row - 1] == null) {
+                char newCol = (char) (start.charAt(0) - 2);
+                char newRow = (char) (start.charAt(1) - 1);
+                String newStart = String.valueOf(newCol) + String.valueOf(newRow);
+                result += tourVictims(newStart);
+            }
+        }
+        if ((col - 1>=0&&col - 1<=7)&&(row - 2>=0&&row - 2<=7)) {
+            if (pieces[col - 1][row - 2] == white) {
+                result += 1;
+            } else if (pieces[col - 1][row - 2] == null) {
+                char newCol = (char) (start.charAt(0) - 1);
+                char newRow = (char) (start.charAt(1) - 2);
+                String newStart = String.valueOf(newCol) + String.valueOf(newRow);
+                result += tourVictims(newStart);
+            }
+        }
+        return result;
     }
 }

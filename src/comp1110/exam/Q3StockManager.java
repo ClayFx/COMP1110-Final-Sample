@@ -1,11 +1,34 @@
 package comp1110.exam;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * COMP1110 Final Exam, Question 3ii
  */
 public class Q3StockManager {
+    public class Item{
+        String sku;
+        String vid;
+        String name;
+        double price;
+        Integer targetStock;
+        Integer actualStock;
+
+        Item(String sku, String vid, String name, double price){
+            this.sku = sku;
+            this.vid = vid;
+            this.name =name;
+            this.price = price;
+        }
+    }
+
+    HashMap<String,String> vendor = new HashMap<>();
+    HashMap<String, Item> itemHashMap =new HashMap<>();
+    HashMap<String, Integer> itemActualStock = new HashMap<>();
+    HashMap<String, Integer> itemTargetStock = new HashMap<>();
     /**
      * A new vendor has been introduced.
      *
@@ -13,7 +36,7 @@ public class Q3StockManager {
      * @param name The vendor’s name
      */
     public void newVendor(String vid, String name) {
-        // FIXME Question 3iia: complete this function
+        vendor.put(vid,name);// FIXME Question 3iia: complete this function
     }
 
     /**
@@ -25,7 +48,9 @@ public class Q3StockManager {
      * @param price The product’s price (per unit)
      */
     public void newItem(String sku, String vid, String name, double price) {
-        // FIXME Question 3iib: complete this function
+        Item i = new Item(sku,vid,name,price);
+        itemHashMap.put(sku,i);
+        itemActualStock.put(sku,0);// FIXME Question 3iib: complete this function
     }
 
     /**
@@ -35,7 +60,8 @@ public class Q3StockManager {
      * @return the name of the product
      */
     public String getItemName(String sku) {
-        return null; // FIXME Question 3iic: complete this function
+        Item a = itemHashMap.get(sku);
+        return a.name;// FIXME Question 3iic: complete this function
     }
 
     /**
@@ -45,7 +71,9 @@ public class Q3StockManager {
      * @return the name of the product's vendor
      */
     public String getItemVendorName(String sku) {
-        return null; // FIXME Question 3iid: complete this function
+        Item a = itemHashMap.get(sku);
+        String vendorID = a.vid;
+        return vendor.get(vendorID); // FIXME Question 3iid: complete this function
     };
 
     /**
@@ -55,7 +83,8 @@ public class Q3StockManager {
      * @return the price of the product
      */
     public double getItemPrice(String sku) {
-        return -1; // FIXME Question 3iie: complete this function
+        Item a = itemHashMap.get(sku);
+        return a.price; // FIXME Question 3iie: complete this function
     };
 
     /**
@@ -65,7 +94,7 @@ public class Q3StockManager {
      * @return the number of items in stock
      */
     public int getStock(String sku) {
-        return -1; // FIXME Question 3iif: complete this function
+        return itemActualStock.get(sku) ; // FIXME Question 3iif: complete this function
     };
 
     /**
@@ -76,7 +105,10 @@ public class Q3StockManager {
      * @return The number of items of stock remaining after the sale
      */
     public int sale(String sku, int sold) {
-        return -1; // FIXME Question 3iig: complete this function
+        int stock = itemActualStock.get(sku);
+        stock = stock - sold;
+        itemActualStock.put(sku,stock);
+        return stock; // FIXME Question 3iig: complete this function
     }
 
     /**
@@ -86,7 +118,9 @@ public class Q3StockManager {
      * @param added The quantity newly arrived
      */
     public void addStock(String sku, int added) {
-        // FIXME Question 3iih: complete this function
+        int stock = itemActualStock.get(sku);
+        stock = stock + added;
+        itemActualStock.put(sku,stock);// FIXME Question 3iih: complete this function
     }
 
     /**
@@ -96,7 +130,7 @@ public class Q3StockManager {
      * @param target The target quantity desired to be held in stock
      */
     public void setTargetStock(String sku, int target) {
-        // FIXME Question 3iij: complete this function
+        itemTargetStock.put(sku,target);// FIXME Question 3iij: complete this function
     }
 
     /**
@@ -107,7 +141,9 @@ public class Q3StockManager {
      * @return The stock loss or gain (new current – old current)
      */
     public int setActualStock(String sku, int actual) {
-        return 0;  // FIXME Question 3iik: complete this function
+        int oldStock = itemActualStock.get(sku);
+        itemActualStock.put(sku,actual);
+        return actual-oldStock;  // FIXME Question 3iik: complete this function
     }
 
     /**
@@ -120,6 +156,17 @@ public class Q3StockManager {
      * @return A map of item SKUs and the difference between target and actual stock for that item
      */
     public Map<String, Integer> getStockRequired(String vid) {
-        return null; // FIXME Question 3iil: complete this function
+        HashMap<String, Integer> map = new HashMap<>();
+        Set s = itemHashMap.entrySet();
+        Iterator iter = s.iterator();
+        while (iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            Item a = (Item) entry.getValue();
+            if (a.vid==vid) {
+                int required = itemTargetStock.get(a.sku)-itemActualStock.get(a.sku);
+                map.put(a.sku, required);
+            }
+        }
+        return map;
     }
 }

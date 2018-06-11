@@ -1,5 +1,6 @@
 package comp1110.exam;
 
+
 /**
  * COMP1110 Final Exam, Question 1i
  */
@@ -14,6 +15,14 @@ public class Q1Even {
      *        {2, 4}
      */
     public static int[] even(int n) {
-        return null;  // FIXME Question 1i: complete this function
+        int[] result = new int[n/2];
+        if (n==1) {
+            return new int[]{};
+        } else {
+            for (int i = 0; 2*(i+1) <= n; i++){
+                result[i] = 2*(i+1);
+            }
+            return result;
+        }
     }
 }
