@@ -21,7 +21,7 @@ public class Q4ArrayList<T> {
     public void add(T value) {
         /* Unimplemented.  Q4 i) [7 Marks] */
         if (elements+1 > INITIAL_SIZE) {
-            values = Arrays.copyOf(values,elements+1);
+            values = Arrays.copyOf(values,(int) (elements * GROWTH_FACTOR));
             values[elements++] = value;
         } else {
             values[elements++] = value;
