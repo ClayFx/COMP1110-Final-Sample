@@ -12,6 +12,12 @@ public class Q5Hash {
      * @return An integer hash of value in the range 0 ... buckets - 1.
      */
     public static int hash(int value, int buckets) {
-        return -1; // FIXME Question 5iv: complete this function
+//        String s = Integer.toString(Math.abs(value));
+//        int result = 0;
+//        for (int i = s.length() - 1; i >= 0; i--){
+//            result = result + (Character.compare(s.charAt(i),'0'));
+//        }
+        return value % buckets;
+         // FIXME Question 5iv: complete this function
     }
 }
